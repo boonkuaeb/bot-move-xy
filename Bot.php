@@ -54,11 +54,6 @@ function processRoute($route, $output, $debug = null)
             list($position_x, $position_y) = WalkStepProcess($facing, $position_x, $walk_step, $position_y);
         }
     }
-
-    if (!is_null($debug)) {
-        $output->writeln("<info>============================</info>");
-    }
-
     return "<info>X: $position_x Y: $position_y Direction: $facing</info>";
 
 }

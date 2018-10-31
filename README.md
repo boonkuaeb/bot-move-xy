@@ -18,6 +18,6 @@ composer require symfony/console
 ```
 
 **Test Run Bot with Debug mode**
-```php
- php Bot.php move RW15RW1
+```bash
+ php Bot.php move RW155RW20 --debug=1
 ```
