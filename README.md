@@ -12,12 +12,21 @@ cd bot-move-xy
 composer require symfony/console
 ```
 
-**Test Run Bot**
+**Test Run Bot.php**
 ```bash
  php Bot.php move RW155RW20
 ```
 
-**Test Run Bot with Debug mode**
+**Test Run Bot.php with Debug mode**
 ```bash
  php Bot.php move RW155RW20 --debug=1
 ```
+
+**Test Bot2.php **
+
+The Bot is spritting each task to command input.
+
+```bash
+php Bot2.php Maqe:Bot    
+```
+
