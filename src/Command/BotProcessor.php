@@ -22,7 +22,6 @@ class BotProcessor
 
     public function processRoute($route)
     {
-
         if ($this->isTurnRight($route)) {
             $this->setTurnRight();
         } elseif ($this->isTurnLeft($route)) {
@@ -33,19 +32,6 @@ class BotProcessor
         return $this->printOutput();
     }
 
-    public function isWalking($input)
-    {
-        if (strtoupper($input) == 'W') {
-            return true;
-        }
-        return false;
-    }
-
-    public function printOutput()
-    {
-        return "<info>X: " . $this->positionX . " Y: " . $this->positionY . " Direction: " . $this->facing . "</info>";
-    }
-
     private function isTurnRight($input)
     {
         if (strtoupper($input) == 'R'
@@ -53,33 +39,6 @@ class BotProcessor
             return true;
         }
         return false;
-    }
-
-    private function isTurnLeft($input)
-    {
-        if (strtoupper($input) == 'L'
-        ) {
-            return true;
-        }
-        return false;
-    }
-
-    private function walkStepProcess($walk_step)
-    {
-        switch ($this->facing) {
-            case NORTH;
-                $this->positionY = (double)$this->positionY + (double)$walk_step;
-                break;
-            case SOUTH:
-                $this->positionY = (double)$this->positionY - (double)$walk_step;
-                break;
-            case EAST:
-                $this->positionX = (double)$this->positionX + (double)$walk_step;
-                break;
-            case WEST:
-                $this->positionX = (double)$this->positionX - (double)$walk_step;
-                break;
-        }
     }
 
     private function setTurnRight()
@@ -100,6 +59,15 @@ class BotProcessor
         }
     }
 
+    private function isTurnLeft($input)
+    {
+        if (strtoupper($input) == 'L'
+        ) {
+            return true;
+        }
+        return false;
+    }
+
     private function setTurnLeft()
     {
         switch ($this->facing) {
@@ -115,5 +83,36 @@ class BotProcessor
             case WEST:
                 $this->facing = SOUTH;
         }
+    }
+
+    private function walkStepProcess($walk_step)
+    {
+        switch ($this->facing) {
+            case NORTH;
+                $this->positionY = (double)$this->positionY + (double)$walk_step;
+                break;
+            case SOUTH:
+                $this->positionY = (double)$this->positionY - (double)$walk_step;
+                break;
+            case EAST:
+                $this->positionX = (double)$this->positionX + (double)$walk_step;
+                break;
+            case WEST:
+                $this->positionX = (double)$this->positionX - (double)$walk_step;
+                break;
+        }
+    }
+
+    public function printOutput()
+    {
+        return "<info>X: " . $this->positionX . " Y: " . $this->positionY . " Direction: " . $this->facing . "</info>";
+    }
+
+    public function isWalking($input)
+    {
+        if (strtoupper($input) == 'W') {
+            return true;
+        }
+        return false;
     }
 }
