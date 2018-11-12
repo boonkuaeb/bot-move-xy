@@ -24,7 +24,7 @@ composer require symfony/console
 
 **Test Bot2.php **
 
-The Bot is spritting each task to command input.
+To extract tasks to each command input.
 
 ```bash
 php Bot2.php Maqe:Bot    
