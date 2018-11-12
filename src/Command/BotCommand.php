@@ -14,6 +14,17 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Question\Question;
 
+const CMD = [
+    '1' => 'R',
+    '2' => 'L',
+    '3' => 'W',
+    'Q' => 'Q',
+];
+const CMD_LABEL = [
+    "1" => 'Turn Right',
+    "2" => 'Turn Left',
+    "3" => 'Walk',
+    "Q" => 'Exit'];
 
 class BotCommand extends Command
 {
@@ -35,8 +46,9 @@ class BotCommand extends Command
         $helper = $this->getHelper('question');
 
         do {
-            $questionCommand = $this->selectCommandChoice();
+            $questionCommand = $this->defineCommandChoice();
             $route = $helper->ask($input, $output, $questionCommand);
+            $route = $this->translateNumberToAlpha($route);
             if ($route == 'Q') {
                 $run = false;
                 $this->Quite($output);
@@ -55,16 +67,10 @@ class BotCommand extends Command
         } while ($run);
     }
 
-    private function selectCommandChoice()
+    private function defineCommandChoice()
     {
         $questionCommand = new ChoiceQuestion(
-            'Please select your command (defaults to W)',
-            [
-                'R' => 'Turn Right',
-                'L' => 'Turn Left',
-                'W' => 'Walk',
-                'Q' => 'Exit'],
-            'W'
+            'Please select your command (defaults to 3)', CMD_LABEL, '3'
         );
         $questionCommand->setNormalizer(function ($value) {
             return $value ? trim(strtoupper($value)) : '';
@@ -72,6 +78,11 @@ class BotCommand extends Command
 
         $questionCommand->setErrorMessage('Command %s is invalid.');
         return $questionCommand;
+    }
+
+    private function translateNumberToAlpha($route)
+    {
+        return CMD[$route];
     }
 
     /**
